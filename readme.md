@@ -3,15 +3,17 @@ Need to make an api with the following routes will fill the deeds later
 
 ## Status 
 GET - `/api/healthCheck`
+- Checks the health of the api, if it's running or not
 
 GET - `/api/ping`
+- checks the health as well but returns 'pong'
 
 ## Menu
 GET - `/api/menu`
 - Get Menu List
 *will add some CRUD at a later stage*
 
-## order
+## Order
 GET - `/api/order/:orderId`
 - Get order by order id
 

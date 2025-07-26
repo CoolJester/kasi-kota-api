@@ -1,55 +1,17 @@
-var menuItems = [
-    {
-        name: 'base',
-        price: null,
-        imageUrl: null,
-        items: [
-            'Bun', 'Chips', 'Archaar', 'Sauces'
-        ]
-    },
-    {
-        name: 'Number 1',
-        price: 15,
-        imageUrl: '',
-        items: [
-            'polony'
-        ]
-    },
-        {
-        name: 'Number 2',
-        price: 25,
-        imageUrl: '',
-        items: [
-            'polony', 'sausage'
-        ]
-    },
-        {
-        name: 'Number 3',
-        price: 35,
-        imageUrl: '',
-        items: [
-            'polony', 'special', 'cheese', 'sausage' 
-        ]
-    },
-        {
-        name: 'Number 4',
-        price: 45,
-        imageUrl: '',
-        items: [
-            'polony', 'special', 'cheese', 'russian', 'sausage'
-        ]
-    },
-        {
-        name: 'Number 5',
-        price: 55,
-        imageUrl: '',
-        items: [
-            'burger', 'patty', 'special', 'cheese', 'russian', 'sausage' 
-        ]
-    },
-]
+const colors = require('colors');
+const Menu = require("../models/menu");
+// createBase.createBase(menuItems); // This is to create the menu if it doesn't exist
 
 exports.getMenu = (req, res) => {
   console.log('Get Menu Called');
-  res.json({data: menuItems, links: {next: '', self: '', next: ''}, meta: null});
+
+  Menu.find()
+    .then(response => {
+        console.log(`Sucess getMenu: items received ${response.length} DEBUG: ${response}`.green);
+        res.status(200).json({data: response, links: {next: '', self: '', next: ''}, meta: null});
+    })
+    .catch(error => {
+        console.log(`Error getMenu: ${error}`.red);
+        res.status(500).json({error: "Bad Request", message: error.message, timestamp: "2025-07-23T07:45:00.123Z"});
+    });
 };

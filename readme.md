@@ -21,12 +21,15 @@ GET - `/api/userId`
 GET - `/api/order/:orderId`
 - Get order by order id
 
+GET - `/api/order/user/:userId`
+- Get order by user id
+
 POST - `/api/order`
 - place an order
 - JSON Body {userId: id, items: [itemId, itemId]}
 - Response  {orderId: orderId}
 
-PUT - `/api/order/:orderId`
+PUT - `/api/order/:orderId` | *TODO*
 - Update an order, will replace with new information
 
 DELETE - `/api/order/:orderId`

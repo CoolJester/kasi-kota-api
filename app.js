@@ -41,10 +41,12 @@ mongoose
 // Import routes
 const healthRoutes = require("./routes/healthCheck");
 const menuRoutes = require("./routes/menu");
+const userRoutes = require("./routes/user");
 
 // Use routes
 app.use("/api", healthRoutes);
 app.use("/api", menuRoutes);
+app.use("/api", userRoutes);
 
 //Page not found
 app.use("/", (req, res) => {

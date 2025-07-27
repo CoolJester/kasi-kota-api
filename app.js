@@ -42,11 +42,13 @@ mongoose
 const healthRoutes = require("./routes/healthCheck");
 const menuRoutes = require("./routes/menu");
 const userRoutes = require("./routes/user");
+const orderRoutes = require("./routes/order");
 
 // Use routes
 app.use("/api", healthRoutes);
 app.use("/api", menuRoutes);
 app.use("/api", userRoutes);
+app.use("/api", orderRoutes);
 
 //Page not found
 app.use("/", (req, res) => {

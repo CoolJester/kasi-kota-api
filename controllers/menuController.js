@@ -7,11 +7,11 @@ exports.getMenu = (req, res) => {
 
   Menu.find()
     .then(response => {
-        console.log(`Sucess getMenu: items received ${response.length}`.green);
+        console.log(`Success getMenu: items received ${response.length}`.green);
         res.status(200).json({data: response, links: {next: '', self: '', next: ''}, meta: null});
     })
     .catch(error => {
         console.log(`Error getMenu: ${error}`.red);
-        res.status(500).json({error: "Bad Request", message: error.message, timestamp: "2025-07-23T07:45:00.123Z"});
+        res.status(500).json({error: "Internal Server Error", message: error.message, timestamp: Date.now});
     });
 };

@@ -7,7 +7,7 @@ exports.getMenu = (req, res) => {
 
   Menu.find()
     .then(response => {
-        console.log(`Sucess getMenu: items received ${response.length} DEBUG: ${response}`.green);
+        console.log(`Sucess getMenu: items received ${response.length}`.green);
         res.status(200).json({data: response, links: {next: '', self: '', next: ''}, meta: null});
     })
     .catch(error => {

@@ -13,6 +13,10 @@ GET - `/api/menu`
 - Get Menu List
 *will add some CRUD at a later stage*
 
+## User
+GET - `/api/userId`
+- Get a random guid to use for user identification
+
 ## Order
 GET - `/api/order/:orderId`
 - Get order by order id

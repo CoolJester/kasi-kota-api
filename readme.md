@@ -34,3 +34,9 @@ PUT - `/v1/api/order/:orderId` | *TODO*
 
 DELETE - `/v1/api/order/:orderId`
 - Delete an order by orderId
+
+# Deployment
+
+### Login and Deploy
+First - `az login`
+

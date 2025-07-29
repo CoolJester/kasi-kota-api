@@ -2,35 +2,41 @@
 Need to make an api with the following routes will fill the deeds later
 
 ## Status 
-GET - `/api/healthCheck`
+GET - `/v1/api/healthCheck`
 - Checks the health of the api, if it's running or not
 
-GET - `/api/ping`
+GET - `/v1/api/ping`
 - checks the health as well but returns 'pong'
 
 ## Menu
-GET - `/api/menu`
+GET - `/v1/api/menu`
 - Get Menu List
 *will add some CRUD at a later stage*
 
 ## User
-GET - `/api/userId`
+GET - `/v1/api/userId`
 - Get a random guid to use for user identification
 
 ## Order
-GET - `/api/order/:orderId`
+GET - `/v1/api/order/:orderId`
 - Get order by order id
 
-GET - `/api/order/user/:userId`
+GET - `/v1/api/order/user/:userId`
 - Get order by user id
 
-POST - `/api/order`
+POST - `/v1/api/order`
 - place an order
 - JSON Body {userId: id, items: [itemId, itemId]}
 - Response  {orderId: orderId}
 
-PUT - `/api/order/:orderId` | *TODO*
+PUT - `/v1/api/order/:orderId` | *TODO*
 - Update an order, will replace with new information
 
-DELETE - `/api/order/:orderId`
+DELETE - `/v1/api/order/:orderId`
 - Delete an order by orderId
+
+# Deployment
+
+### Login and Deploy
+First - `az login`
+

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Title</title>
+    <style>
+        ul{
+            font-size: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            border: 2px solid black;
+            width: fit-content;
+            padding: 1.8rem;
+            background-color: lightgrey;
+        }
+        ul li {
+            display: block;
+        }
+    </style>
+  </head>
+  <body>
+    <h1>Test</h1>
+    <h2>Menu List</h2>
+    <ul id="menuList"></ul>
+    <script>
+      // Getting the menu list
+      $.get("http://localhost:3000/api/v1/menu", (data, status) => {
+        console.log(`Status: ${status}, Response: `, data);
+
+        // Append the data elements in the array
+        data["data"].forEach((menuItem) => {
+          // Prepare the element
+          var elementToPrepend = `<li>${menuItem["name"]} - <b>Price</b> ${menuItem["price"]}</li>`;
+
+          $("#menuList").append(elementToPrepend);
+        });
+      });
+    </script>
+  </body>
+</html>

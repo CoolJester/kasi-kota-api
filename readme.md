@@ -67,28 +67,6 @@ az appservice plan create --name $PLAN_NAME --resource-group $RESOURCE_GROUP --l
 az webapp create --resource-group $RESOURCE_GROUP --plan $PLAN_NAME --name $APP_NAME --runtime $RUNTIME
 ```
 
-## Prepare for deployment
-```
-if (Test-Path $ZIP_FILE) {
-    Remove-Item -Path $ZIP_FILE -Force
-}
-```
-
-```
-Compress-Archive -Path * -DestinationPath deploy.zip -Force
-```
-
-```
-az webapp deploy source config-zip --resource-group $RESOURCE_GROUP --name $APP_NAME --src $ZIP_FILE
-```
-
-## Configure web app
-```
-az webapp config appsettings set --resource-group $RESOURCE_GROUP --name $APP_NAME --settings `
-    ENV=production `
-    DB_URI="your-mongodb-or-other-connection-string"
-```
-
 ## Clean Resources 
 ```
 az group delete --name $RESOURCE_GROUP --no-wait --yes

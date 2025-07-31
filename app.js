@@ -50,6 +50,9 @@ app.use("/api", menuRoutes);
 app.use("/api", userRoutes);
 app.use("/api", orderRoutes);
 
+// Serving the images to the public
+app.use('/static', express.static('static'));
+
 //Page not found
 app.use("/", (req, res) => {
   res.status(404).json({

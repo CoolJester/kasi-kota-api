@@ -35,8 +35,66 @@ PUT - `/v1/api/order/:orderId` | *TODO*
 DELETE - `/v1/api/order/:orderId`
 - Delete an order by orderId
 
-# Deployment
+# Deployment Guide
 
-### Login and Deploy
-First - `az login`
+## Login to Azure
 
+```powershell
+az login
+```
+
+##  Set Environment Variables
+```
+$RESOURCE_GROUP = "kasi-kota-dev"
+$LOCATION = "southafricanorth"
+$PLAN_NAME = "kasi-kota-app-plan"
+$APP_NAME = "kasi-kota-dev"
+$RUNTIME = "NODE|22-lts"
+$ZIP_FILE = "deploy.zip"
+```
+
+## Create Resources
+```
+az group create --name $RESOURCE_GROUP --location $LOCATION
+```
+
+```
+az appservice plan create --name $PLAN_NAME --resource-group $RESOURCE_GROUP --location $LOCATION --sku F1 --is-linux
+```
+
+*This command fails on powershell - because of the |*
+```
+az webapp create --resource-group $RESOURCE_GROUP --plan $PLAN_NAME --name $APP_NAME --runtime $RUNTIME
+```
+
+## Prepare for deployment
+```
+if (Test-Path $ZIP_FILE) {
+    Remove-Item -Path $ZIP_FILE -Force
+}
+```
+
+```
+Compress-Archive -Path * -DestinationPath deploy.zip -Force
+```
+
+```
+az webapp deploy source config-zip --resource-group $RESOURCE_GROUP --name $APP_NAME --src $ZIP_FILE
+```
+
+## Configure web app
+```
+az webapp config appsettings set --resource-group $RESOURCE_GROUP --name $APP_NAME --settings `
+    ENV=production `
+    DB_URI="your-mongodb-or-other-connection-string"
+```
+
+## Clean Resources 
+```
+az group delete --name $RESOURCE_GROUP --no-wait --yes
+```
+
+### Debug
+```
+az webapp log tail --name $APP_NAME --resource-group $RESOURCE_GROUP
+```

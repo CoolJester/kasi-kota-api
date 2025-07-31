@@ -35,47 +35,66 @@ PUT - `/v1/api/order/:orderId` | *TODO*
 DELETE - `/v1/api/order/:orderId`
 - Delete an order by orderId
 
-# Deployment
+# Deployment Guide
 
-### Login and Deploy
-First - `az login`
+## Login to Azure
 
-Second (Variables)
-- `RESOURCE_GROUP="kasi-kota-dev"`
-- `LOCATION="southafricanorth"`
-- `PLAN_NAME="kasi-kota-app-plan"`
-- `APP_NAME="kasi-kota-dev"`
-- `RUNTIME="NODE|22-lts"`
-- `ZIP_FILE="deploy.zip"`
+```powershell
+az login
+```
 
-Third 
-- `az group create --name $RESOURCE_GROUP --location $LOCATION`
+##  Set Environment Variables
+```
+$RESOURCE_GROUP = "kasi-kota-dev"
+$LOCATION = "southafricanorth"
+$PLAN_NAME = "kasi-kota-app-plan"
+$APP_NAME = "kasi-kota-dev"
+$RUNTIME = "NODE|22-lts"
+$ZIP_FILE = "deploy.zip"
+```
 
-Fourth
-- `az appservice plan create --name $PLAN_NAME --resource-group $RESOURCE_GROUP --location $LOCATION --sku F1 --is-linux`
+## Create Resources
+```
+az group create --name $RESOURCE_GROUP --location $LOCATION
+```
 
-Five
-- `az webapp create --resource-group $RESOURCE_GROUP --plan $PLAN_NAME --name $APP_NAME  --runtime "$RUNTIME"`
+```
+az appservice plan create --name $PLAN_NAME --resource-group $RESOURCE_GROUP --location $LOCATION --sku F1 --is-linux
+```
 
-Six
+*This command fails on powershell - because of the |*
+```
+az webapp create --resource-group $RESOURCE_GROUP --plan $PLAN_NAME --name $APP_NAME --runtime $RUNTIME
+```
 
-Clean previous zip if it exists
-- `Remove-Item -Path deploy.zip -Force`
+## Prepare for deployment
+```
+if (Test-Path $ZIP_FILE) {
+    Remove-Item -Path $ZIP_FILE -Force
+}
+```
 
-Create a zip excluding node_modules
-- `Compress-Archive -Path * -DestinationPath deploy.zip -Force -Exclude node_modules, .git`
+```
+Compress-Archive -Path * -DestinationPath deploy.zip -Force
+```
 
-Make it executable
-- `chmod +x zipdeploy.sh`
-- `./zipdeploy.sh`
+```
+az webapp deploy source config-zip --resource-group $RESOURCE_GROUP --name $APP_NAME --src $ZIP_FILE
+```
 
-Deploy to Azure
-- `az webapp deploy source config-zip --resource-group $RESOURCE_GROUP --name $APP_NAME --src $ZIP_FILE`
+## Configure web app
+```
+az webapp config appsettings set --resource-group $RESOURCE_GROUP --name $APP_NAME --settings `
+    ENV=production `
+    DB_URI="your-mongodb-or-other-connection-string"
+```
 
-Set Env Variables
-- `az webapp config appsettings set --resource-group $RESOURCE_GROUP --name $APP_NAME --settings ENV=production DB_URI="your-connection-string-here"`
+## Clean Resources 
+```
+az group delete --name $RESOURCE_GROUP --no-wait --yes
+```
 
-Clean Up
-- `az group delete --name $RESOURCE_GROUP --no-wait --yes`
-
-
+### Debug
+```
+az webapp log tail --name $APP_NAME --resource-group $RESOURCE_GROUP
+```

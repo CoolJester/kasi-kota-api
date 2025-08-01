@@ -16,7 +16,9 @@ app.use(express.json());
 
 // Security Middleware
 app.use(cors());
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: false
+}));
 
 // Load the default ENV file first to access ENV
 dotenv.config({ path: './config/config.env' });

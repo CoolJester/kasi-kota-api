@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 const colors = require("colors");
 const dotenv = require("dotenv");
 const helmet = require('helmet');
-const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const rateLimit = require('express-rate-limit');
 
@@ -19,11 +18,7 @@ app.use(express.json());
 
 // Security Middleware
 app.use(cors());
-app.use(helmet({
-  contentSecurityPolicy: false
-}));
-app.use(mongoSanitize());
-app.use(xss());
+app.use(helmet());
 app.disable('x-powered-by');
 
 // Rate Limiting requests

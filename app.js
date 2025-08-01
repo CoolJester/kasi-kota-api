@@ -5,6 +5,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const colors = require("colors");
 const dotenv = require("dotenv");
+const helmet = require('helmet');
 
 const app = express();
 
@@ -12,7 +13,10 @@ const port = 8080;
 
 // Middleware
 app.use(express.json());
+
+// Security Middleware
 app.use(cors());
+app.use(helmet());
 
 // Load the default ENV file first to access ENV
 dotenv.config({ path: './config/config.env' });

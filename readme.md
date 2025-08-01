@@ -45,12 +45,12 @@ az login
 
 ##  Set Environment Variables
 ```
-$RESOURCE_GROUP = "kasi-kota-dev"
-$LOCATION = "southafricanorth"
-$PLAN_NAME = "kasi-kota-app-plan"
-$APP_NAME = "kasi-kota-dev"
-$RUNTIME = "NODE|22-lts"
-$ZIP_FILE = "deploy.zip"
+RESOURCE_GROUP="kasi-kota-dev"
+LOCATION="southafricanorth"
+PLAN_NAME="kasi-kota-app-plan"
+APP_NAME="kasi-kota-dev"
+RUNTIME="NODE|22-lts"
+ZIP_FILE="deploy.zip"
 ```
 
 ## Create Resources

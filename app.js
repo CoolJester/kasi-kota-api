@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const colors = require("colors");
 const dotenv = require("dotenv");
 const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(cors());
 app.use(helmet({
   contentSecurityPolicy: false
 }));
+app.use(mongoSanitize());
 
 // Load the default ENV file first to access ENV
 dotenv.config({ path: './config/config.env' });

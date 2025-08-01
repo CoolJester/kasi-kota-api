@@ -24,6 +24,7 @@ app.use(helmet({
 }));
 app.use(mongoSanitize());
 app.use(xss());
+app.disable('x-powered-by');
 
 // Rate Limiting requests
 const limiter = rateLimit({

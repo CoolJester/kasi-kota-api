@@ -1,6 +1,8 @@
 # Kasi Kota 
 Need to make an api with the following routes will fill the deeds later
 
+Base URL: [Kasi Kota Dev Environment](https://kasi-kota-dev.azurewebsites.net/api/healthcheck)
+
 ## Status 
 GET - `/api/healthCheck`
 - Checks the health of the api, if it's running or not
